@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
+using keepr.Repositories;
+using keepr.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,6 +66,16 @@ namespace keepr
       });
 
       // REVIEW Do you want to do something here?
+
+      services.AddScoped<IDbConnection>(x => CreateDbConnection());
+      services.AddTransient<VaultsService>();
+      services.AddTransient<VaultsRepository>();
+      services.AddTransient<ProfilesService>();
+      services.AddTransient<ProfilesRepository>();
+      services.AddTransient<KeepsService>();
+      services.AddTransient<KeepsRepository>();
+      services.AddTransient<VaultKeepsService>();
+      services.AddTransient<VaultKeepsRepository>();
 
     }
 
