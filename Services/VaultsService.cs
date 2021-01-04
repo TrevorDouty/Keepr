@@ -34,5 +34,15 @@ namespace keepr.Services
     {
       return _repo.Create(vault);
     }
+
+    public string Delete(int id)
+    {
+      Vault foundVault = GetOne(id);
+      if (_repo.Delete(id))
+      {
+        return "Vault has been Deleted";
+      }
+      throw new Exception("Could not delete the vault");
+    }
   }
 }

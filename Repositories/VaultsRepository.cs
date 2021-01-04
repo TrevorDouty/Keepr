@@ -40,5 +40,12 @@ SELECT * from Vaults
       vault.Id = _db.ExecuteScalar<int>(sql, vault);
       return vault;
     }
+
+    public bool Delete(int id)
+    {
+      string sql = "DELETE FROM vaults WHERE id = @id LIMIT 1;";
+      int affectedRows = _db.Execute(sql, new { id });
+      return affectedRows == 1;
+    }
   }
 }

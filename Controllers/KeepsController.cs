@@ -1,29 +1,29 @@
 using System.Collections.Generic;
-using keepr.Models;
-using keepr.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using keepr.Models;
+using keepr.Services;
 
 namespace keepr.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class VaultsController : ControllerBase
+  public class KeepsController : ControllerBase
   {
-    private readonly VaultsService _vs;
+    private readonly KeepsService _ks;
 
-    public VaultsController(VaultsService vs)
+    public KeepsController(KeepsService ks)
     {
-      _vs = vs;
+      _ks = ks;
     }
 
     [HttpGet]
 
-    public ActionResult<IEnumerable<Vault>> Get()
+    public ActionResult<IEnumerable<Keep>> Get()
     {
       try
       {
-        return Ok(_vs.Get());
+        return Ok(_ks.Get());
       }
       catch (System.Exception e)
       {
@@ -34,11 +34,11 @@ namespace keepr.Controllers
     [HttpGet("{id}")]
     [Authorize]
 
-    public ActionResult<Vault> GetOne(int id)
+    public ActionResult<Keep> GetOne(int id)
     {
       try
       {
-        return Ok(_vs.GetOne(id));
+        return Ok(_ks.GetOne(id));
       }
       catch (System.Exception e)
       {
@@ -47,11 +47,11 @@ namespace keepr.Controllers
     }
 
     [HttpPost]
-    public ActionResult<Vault> Create([FromBody] Vault vault)
+    public ActionResult<Keep> Create([FromBody] Keep Keep)
     {
       try
       {
-        return Ok(_vs.Create(vault));
+        return Ok(_ks.Create(Keep));
       }
       catch (System.Exception e)
       {
@@ -65,7 +65,7 @@ namespace keepr.Controllers
     {
       try
       {
-        return Ok(_vs.Delete(id));
+        return Ok(_ks.Delete(id));
       }
       catch (System.Exception e)
       {
