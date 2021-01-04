@@ -33,9 +33,9 @@ SELECT * from Keeps
     public Keep Create(Keep Keep)
     {
       string sql = @"INSERT INTO keeps
-      (name, description, isPrivate)
+      (title, description, image, count)
       VALUES
-      (@Name, @Description, @isPrivate);
+      (@Title, @Description, @Image, @Count);
       SELECT LAST_INSERT_ID();";
       Keep.Id = _db.ExecuteScalar<int>(sql, Keep);
       return Keep;

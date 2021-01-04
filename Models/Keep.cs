@@ -7,6 +7,9 @@ namespace keepr.Models
     public string Image { get; set; }
     public int Count { get; set; }
     public int Id { get; set; }
+    public string CreatorId { get; set; }
+    public int Keeps { get; set; }
+    public Profile Creator { get; set; }
 
   }
 }
