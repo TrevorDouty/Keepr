@@ -17,19 +17,17 @@ namespace keepr.Services
 
     public IEnumerable<Vault> Get(string userId)
     {
-
-
       return _repo.Get().ToList().FindAll(v => v.CreatorId == userId || v.isPrivate == false);
     }
 
-    internal Vault GetOne(int id, string userId)
+    internal Vault GetOne(int id)
     {
       Vault foundVault = _repo.GetOne(id);
       if (foundVault == null)
       {
         throw new Exception("This Vault doesn't exist");
       }
-      if (foundVault.isPrivate && foundVault.CreatorId != userId)
+      if (foundVault.isPrivate)
       {
         throw new Exception("This Vault is Private");
       }

@@ -38,12 +38,11 @@ namespace keepr.Controllers
 
     [HttpGet("{id}")]
 
-    public async Task<ActionResult<Vault>> GetOne(int id)
+    public ActionResult<Vault> GetOne(int id)
     {
       try
       {
-        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-        return Ok(_vs.GetOne(id, userInfo.Id));
+        return Ok(_vs.GetOne(id));
       }
       catch (System.Exception e)
       {
