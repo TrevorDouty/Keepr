@@ -27,8 +27,13 @@ namespace keepr.Controllers
     {
       try
       {
+        Vault original = _vs.GetOne(vaultKeep.VaultId);
         Profile userinfo = await HttpContext.GetUserInfoAsync<Profile>();
         vaultKeep.CreatorId = userinfo.Id;
+        if (original.CreatorId != userinfo.Id)
+        {
+          return BadRequest("Can't add to this vault");
+        }
         return Ok(_vks.Create(vaultKeep));
       }
       catch (System.Exception e)
