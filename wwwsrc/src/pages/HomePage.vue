@@ -1,15 +1,27 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1>
+  <div class="container-fluid home">
+    <div class="row justify-content-around">
+      <keeps-component v-for="keep in keeps" :key="keep.id" :keep-prop="keep" />
+    </div>
   </div>
 </template>
-
 <script>
+import { computed, onMounted } from 'vue'
+import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
+import keepsComponent from '../components/KeepsComponent'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: { keepsComponent },
+
+  setup() {
+    onMounted(() => { keepsService.getKeeps() })
+    return {
+      profile: computed(() => AppState.profile),
+      keeps: computed(() => AppState.keeps)
+    }
+  }
 }
 </script>
 
