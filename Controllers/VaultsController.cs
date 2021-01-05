@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using CodeWorks.Auth0Provider;
-using keepr.Models;
-using keepr.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using keepr.Models;
+using keepr.Services;
+using CodeWorks.Auth0Provider;
+using System.Threading.Tasks;
 
 namespace keepr.Controllers
 {
@@ -23,11 +23,12 @@ namespace keepr.Controllers
 
     [HttpGet]
 
-    public ActionResult<IEnumerable<Vault>> Get()
+    public async Task<ActionResult<IEnumerable<Vault>>> Get()
     {
       try
       {
-        return Ok(_vs.Get());
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_vs.Get(userInfo.Id));
       }
       catch (System.Exception e)
       {
@@ -36,13 +37,13 @@ namespace keepr.Controllers
     }
 
     [HttpGet("{id}")]
-    [Authorize]
 
-    public ActionResult<Vault> GetOne(int id)
+    public async Task<ActionResult<Vault>> GetOne(int id)
     {
       try
       {
-        return Ok(_vs.GetOne(id));
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_vs.GetOne(id, userInfo.Id));
       }
       catch (System.Exception e)
       {
@@ -52,13 +53,13 @@ namespace keepr.Controllers
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Vault>> Create([FromBody] Vault Vault)
+    public async Task<ActionResult<Vault>> Create([FromBody] Vault vault)
     {
       try
       {
         Profile userinfo = await HttpContext.GetUserInfoAsync<Profile>();
-        Vault.CreatorId = userinfo.Id;
-        Vault newVault = _vs.Create(Vault);
+        vault.CreatorId = userinfo.Id;
+        Vault newVault = _vs.Create(vault);
         newVault.Creator = userinfo;
         return Ok(newVault);
       }
@@ -70,20 +71,41 @@ namespace keepr.Controllers
 
     [HttpDelete("{id}")]
 
-    public ActionResult<string> Delete(int id)
+    public async Task<ActionResult<string>> Delete(int id)
     {
       try
       {
-        return Ok(_vs.Delete(id));
+        Profile userinfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_vs.Delete(id, userinfo.Id));
       }
-      catch (System.Exception e)
+      catch (System.Exception)
       {
-        return BadRequest(e.Message);
+        return BadRequest("Cannot Delete");
       }
     }
 
-    [HttpGet("{vaultId}/vaultkeeps")]
-    public ActionResult<IEnumerable<Keep>> GetAction(int vaultId)
+    [HttpPut("{id}")]
+    [Authorize]
+
+    public async Task<ActionResult<Vault>> Edit(int id, [FromBody] Vault editVault)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        editVault.Id = id;
+        return Ok(_vs.Edit(editVault, userInfo.Id));
+      }
+      catch (System.Exception)
+      {
+
+        throw;
+      }
+    }
+
+    [HttpGet("{vaultId}/keeps")]
+    [Authorize]
+
+    public ActionResult<IEnumerable<Keep>> Get(int vaultId)
     {
       try
       {

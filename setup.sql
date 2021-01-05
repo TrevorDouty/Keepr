@@ -81,3 +81,9 @@
 
 -- ALTER TABLE keeps
 -- ADD img VARCHAR(255);
+
+--  ALTER TABLE keeps
+--   DROP COLUMN creator
+
+--  ALTER TABLE keeps
+-- ADD views INT 

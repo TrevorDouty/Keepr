@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -14,36 +15,73 @@ namespace keepr.Services
       _repo = repo;
     }
 
-    public IEnumerable<Vault> Get()
+    public IEnumerable<Vault> Get(string userId)
     {
-      return _repo.Get();
+
+
+      return _repo.Get().ToList().FindAll(v => v.CreatorId == userId || v.isPrivate == false);
     }
 
-    internal Vault GetOne(int id)
+    internal Vault GetOne(int id, string userId)
     {
       Vault foundVault = _repo.GetOne(id);
       if (foundVault == null)
       {
         throw new Exception("This Vault doesn't exist");
       }
+      if (foundVault.isPrivate && foundVault.CreatorId != userId)
+      {
+        throw new Exception("This Vault is Private");
+      }
       return foundVault;
 
     }
 
-    public Vault Create(Vault vault)
+
+    public string Delete(int id, string userId)
+    {
+      Vault original = _repo.GetOne(id);
+      if (original == null)
+      {
+        throw new Exception("Incorrect Id");
+      }
+      else if (original.CreatorId != userId)
+      {
+        throw new Exception("Not allowed");
+      }
+      else if (_repo.Delete(id))
+      {
+        return "Deleted";
+      }
+      return "Could not delete";
+    }
+
+    internal Vault Create(Vault vault)
     {
       vault.Id = _repo.Create(vault);
       return vault;
     }
 
-    public string Delete(int id)
+    internal IEnumerable<Vault> GetVaultsByProfile(string profileId, string userId)
     {
-      Vault foundVault = GetOne(id);
-      if (_repo.Delete(id))
+      return _repo.GetVaultsByProfile(profileId);
+    }
+
+    internal Vault Edit(Vault editVault, string userId)
+    {
+      Vault original = _repo.GetOne(editVault.Id);
+      if (original == null)
       {
-        return "Vault has been Deleted";
+        throw new Exception("Incorrect Id");
       }
-      throw new Exception("Could not delete the vault");
+      if (original.CreatorId != userId)
+      {
+        throw new Exception("You can't edit this vault");
+      }
+      _repo.Edit(editVault);
+
+      return original;
+
     }
   }
 }

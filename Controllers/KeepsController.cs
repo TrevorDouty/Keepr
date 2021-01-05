@@ -34,7 +34,6 @@ namespace keepr.Controllers
     }
 
     [HttpGet("{id}")]
-    [Authorize]
 
     public ActionResult<Keep> GetOne(int id)
     {
@@ -68,15 +67,34 @@ namespace keepr.Controllers
 
     [HttpDelete("{id}")]
 
-    public ActionResult<string> Delete(int id)
+    public async Task<ActionResult<string>> Delete(int id)
     {
       try
       {
-        return Ok(_ks.Delete(id));
+        Profile userinfo = await HttpContext.GetUserInfoAsync<Profile>();
+        return Ok(_ks.Delete(id, userinfo.Id));
       }
-      catch (System.Exception e)
+      catch (System.Exception)
       {
-        return BadRequest(e.Message);
+        return BadRequest("Cannot Delete");
+      }
+    }
+
+    [HttpPut("{id}")]
+    [Authorize]
+
+    public async Task<ActionResult<Keep>> Edit(int id, [FromBody] Keep editKeep)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        editKeep.Id = id;
+        return Ok(_ks.Edit(editKeep, userInfo.Id));
+      }
+      catch (System.Exception)
+      {
+
+        throw;
       }
     }
   }

@@ -31,20 +31,50 @@ namespace keepr.Services
     }
 
 
-    public string Delete(int id)
+    public string Delete(int id, string userId)
     {
-      Keep foundKeep = GetOne(id);
-      if (_repo.Delete(id))
+      Keep original = _repo.GetOne(id);
+      if (original == null)
       {
-        return "Keep has been Deleted";
+        throw new Exception("Incorrect Id");
       }
-      throw new Exception("Could not delete the Keep");
+      else if (original.CreatorId != userId)
+      {
+        throw new Exception("Not allowed");
+      }
+      else if (_repo.Delete(id))
+      {
+        return "Deleted";
+      }
+      return "Could not delete";
     }
 
     internal Keep Create(Keep keep)
     {
       keep.Id = _repo.Create(keep);
       return keep;
+    }
+
+    internal IEnumerable<Keep> GetKeepsByProfile(string profileId, string userId)
+    {
+      return _repo.GetKeepsByProfile(profileId);
+    }
+
+    internal Keep Edit(Keep editKeep, string userId)
+    {
+      Keep original = _repo.GetOne(editKeep.Id);
+      if (original == null)
+      {
+        throw new Exception("Incorrect Id");
+      }
+      if (original.CreatorId != userId)
+      {
+        throw new Exception("You can't edit this keep");
+      }
+      _repo.Edit(editKeep);
+
+      return original;
+
     }
   }
 }

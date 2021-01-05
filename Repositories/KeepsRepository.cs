@@ -33,9 +33,9 @@ SELECT * from Keeps
     public int Create(Keep Keep)
     {
       string sql = @"INSERT INTO keeps
-      (name, description, img, creatorId)
+      (name, description, img, creatorId, shares, views, keeps)
       VALUES
-      (@Name, @Description, @Img, @CreatorId);
+      (@Name, @Description, @Img, @CreatorId, @Shares, @Views, @Keeps);
       SELECT LAST_INSERT_ID();";
       return _db.ExecuteScalar<int>(sql, Keep);
     }
@@ -45,6 +45,29 @@ SELECT * from Keeps
       string sql = "DELETE FROM Keeps WHERE id = @id LIMIT 1;";
       int affectedRows = _db.Execute(sql, new { id });
       return affectedRows == 1;
+    }
+
+    internal IEnumerable<Keep> GetKeepsByProfile(string profileId)
+    {
+      string sql = @"SELECT keep.*, p.*
+   FROM keeps keep 
+   JOIN profiles p ON keep.creatorId = p.id
+   WHERE keep.creatorId = @profileId;";
+      return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => { keep.Creator = profile; return keep; }, new { profileId }, splitOn: "id");
+    }
+
+    internal void Edit(Keep editKeep)
+    {
+      string sql = @"
+      UPDATE keeps SET 
+      name = @Name,
+      description =@Description,
+      img = @Img,
+      shares = @Shares,
+      views = @Views,
+      keeps = @Keeps
+      WHERE id = @Id;";
+      _db.Execute(sql, editKeep);
     }
   }
 }

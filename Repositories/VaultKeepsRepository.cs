@@ -39,7 +39,7 @@ vaultkeep.id  as VaultKeepId,
 profile.*
 FROM vaultkeeps vaultkeep
 JOIN keeps keep ON keep.id = vaultkeep.keepId
-JOIN profiles profile ON profile.id = k.creatorId
+JOIN profiles profile ON profile.id = keep.creatorId
 WHERE vaultId = @vaultId;";
       return _db.Query<VaultKeepViewModel, Profile, VaultKeepViewModel>(sql, (keep, profile) => { keep.Creator = profile; return keep; }, new { vaultId }, splitOn: "id");
     }
