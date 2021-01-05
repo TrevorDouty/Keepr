@@ -30,15 +30,14 @@ SELECT * from Vaults
     }
 
 
-    public Vault Create(Vault vault)
+    public int Create(Vault vault)
     {
       string sql = @"INSERT INTO vaults
-      (name, description, isPrivate)
+      (name, description, isPrivate, creatorId)
       VALUES
-      (@Name, @Description, @isPrivate);
+      (@Name, @Description, @isPrivate, @creatorId);
       SELECT LAST_INSERT_ID();";
-      vault.Id = _db.ExecuteScalar<int>(sql, vault);
-      return vault;
+      return _db.ExecuteScalar<int>(sql, vault);
     }
 
     public bool Delete(int id)

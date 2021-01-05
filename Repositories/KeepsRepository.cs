@@ -30,15 +30,14 @@ SELECT * from Keeps
     }
 
 
-    public Keep Create(Keep Keep)
+    public int Create(Keep Keep)
     {
       string sql = @"INSERT INTO keeps
-      (title, description, image, count)
+      (name, description, img, creatorId)
       VALUES
-      (@Title, @Description, @Image, @Count);
+      (@Name, @Description, @Img, @CreatorId);
       SELECT LAST_INSERT_ID();";
-      Keep.Id = _db.ExecuteScalar<int>(sql, Keep);
-      return Keep;
+      return _db.ExecuteScalar<int>(sql, Keep);
     }
 
     public bool Delete(int id)

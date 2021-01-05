@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace keepr.Services
 {
@@ -15,14 +16,14 @@ namespace keepr.Services
     }
 
 
-    public Profile Get(Profile userInfo)
+    public Profile GetorCreate(Profile userInfo)
     {
-      Profile profile = _repo.Get(userInfo.Id);
-      if (profile == null)
+      Profile foundprofile = _repo.Get(userInfo.Email);
+      if (foundprofile == null)
       {
         return _repo.Create(userInfo);
       }
-      return profile;
+      return foundprofile;
     }
   }
 }

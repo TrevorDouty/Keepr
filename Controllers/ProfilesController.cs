@@ -27,7 +27,7 @@ namespace keepr.Controllers
       try
       {
         Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-        return Ok(_ps.Get(userInfo));
+        return Ok(_ps.GetorCreate(userInfo));
       }
       catch (System.Exception e)
       {

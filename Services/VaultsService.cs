@@ -32,7 +32,8 @@ namespace keepr.Services
 
     public Vault Create(Vault vault)
     {
-      return _repo.Create(vault);
+      vault.Id = _repo.Create(vault);
+      return vault;
     }
 
     public string Delete(int id)

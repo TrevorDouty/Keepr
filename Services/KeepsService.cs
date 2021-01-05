@@ -30,10 +30,6 @@ namespace keepr.Services
 
     }
 
-    public Keep Create(Keep Keep)
-    {
-      return _repo.Create(Keep);
-    }
 
     public string Delete(int id)
     {
@@ -43,6 +39,12 @@ namespace keepr.Services
         return "Keep has been Deleted";
       }
       throw new Exception("Could not delete the Keep");
+    }
+
+    internal Keep Create(Keep keep)
+    {
+      keep.Id = _repo.Create(keep);
+      return keep;
     }
   }
 }

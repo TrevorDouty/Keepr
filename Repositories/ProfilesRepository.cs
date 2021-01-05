@@ -15,23 +15,25 @@ namespace keepr.Repositories
       _db = db;
     }
 
-    public Profile Get(string id)
+    public Profile Get(string email)
     {
       string sql = @"
-      SELECT * FROM profiles WHERE id = @id
+      SELECT * FROM profiles WHERE email = @email
       ";
-      return _db.QueryFirstOrDefault<Profile>(sql, new { id });
+      return _db.QueryFirstOrDefault<Profile>(sql, new { email });
     }
 
-    public Profile Create(Profile newProfile)
+
+
+    public Profile Create(Profile userinfo)
     {
       string sql = @"
       INSERT INTO profiles
       (name, email, picture, id)
       VALUES
       (@Name, @Email, @Picture, @Id)";
-      _db.Execute(sql, newProfile);
-      return newProfile;
+      _db.Execute(sql, userinfo);
+      return userinfo;
     }
   }
 }
