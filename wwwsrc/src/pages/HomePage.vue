@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid home">
-    <div class="row justify-content-around">
+    <div class="row justify-content-around img-fluid">
       <keeps-component v-for="keep in keeps" :key="keep.id" :keep-prop="keep" />
     </div>
   </div>

@@ -9,6 +9,7 @@ namespace keepr.Repositories
   public class KeepsRepository
   {
     private readonly IDbConnection _db;
+    private readonly string populateCreator = "SELECT keep.*, profile.* FROM keeps keep INNER JOIN profiles profile ON keep.creatorId = profileId";
 
     public KeepsRepository(IDbConnection db)
     {
@@ -17,10 +18,8 @@ namespace keepr.Repositories
 
     public IEnumerable<Keep> Get()
     {
-      string sql = @"
-SELECT * from Keeps
-";
-      return _db.Query<Keep>(sql);
+      string sql = populateCreator;
+      return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) => { keep.Creator = profile; return keep; }, splitOn: "id");
     }
 
     public Keep GetOne(int id)
