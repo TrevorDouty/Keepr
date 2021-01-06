@@ -45,11 +45,11 @@ namespace keepr.Controllers
 
     [HttpGet("{id}")]
 
-    public ActionResult<Profile> GetActionResult(int id)
+    public ActionResult<Profile> GetActionResult(int profileId)
     {
       try
       {
-        return Ok(_ps.GetOne(id));
+        return Ok(_ps.GetOne(profileId));
       }
       catch (System.Exception e)
       {

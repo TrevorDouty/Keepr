@@ -12,9 +12,9 @@ class ProfileService {
     }
   }
 
-  async getProfileByID(id) {
+  async getProfileByID(profileId) {
     try {
-      const res = await api.get('/api/profile/' + id)
+      const res = await api.get('/api/profiles/' + profileId)
       AppState.profile = res.data
     } catch (error) {
       logger.error(error)
