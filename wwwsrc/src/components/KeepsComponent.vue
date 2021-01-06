@@ -28,9 +28,9 @@
         <h5> {{ keeps.name }} </h5>
         <p>{{ keeps.description }}</p>
         <img :src="keeps.img" alt="" class="img-fluid">
-        <h5>{{ keeps.creator }}</h5>
-        <router-link :to="{name: 'Profile', params:{profileId: profile.id}}">
-          <img :src="profile.picture" alt="">
+        <h5>{{ keeps.creator.name }}</h5>
+        <router-link :to="{name: 'Profile', params:{profile: profile.id}}">
+          <img :src="keeps.creator.picture" alt="">
         </router-link>
       </div>
     </div>

@@ -9,7 +9,7 @@ namespace keepr.Repositories
   public class KeepsRepository
   {
     private readonly IDbConnection _db;
-    private readonly string populateCreator = "SELECT keep.*, profile.* FROM keeps keep INNER JOIN profiles profile ON keep.creatorId = profileId";
+    private readonly string populateCreator = "SELECT keep.*, profile.* FROM keeps keep INNER JOIN profiles profile ON keep.creatorId = profile.id";
 
     public KeepsRepository(IDbConnection db)
     {
