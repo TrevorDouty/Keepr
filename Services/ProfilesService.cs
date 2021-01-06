@@ -26,7 +26,7 @@ namespace keepr.Services
       return foundprofile;
     }
 
-    internal Profile GetOne(int id)
+    internal Profile GetOne(string id)
     {
       Profile foundprofile = _repo.GetOne(id);
       if (foundprofile == null)

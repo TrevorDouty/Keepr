@@ -32,7 +32,7 @@
             <h5> {{ keeps.name }} </h5>
             <p>{{ keeps.description }}</p>
             <h5>{{ keeps.creator.name }}</h5>
-            <router-link data-dismiss="modal" :to="{name: 'ProfileById', params:{profileId: keeps.creator.id}}">
+            <router-link data-dismiss="modal" :to="{name: 'ProfileById', params:{id: keeps.creator.id}}">
               <img :src="keeps.creator.picture" alt="" class="avatar justify-self-end">
             </router-link>
           </div>

@@ -36,7 +36,7 @@ namespace keepr.Repositories
       return userinfo;
     }
 
-    internal Profile GetOne(int id)
+    internal Profile GetOne(string id)
     {
       string sql = @"
       SELECT * FROM profiles WHERE id = @id";

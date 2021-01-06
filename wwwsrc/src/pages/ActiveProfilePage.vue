@@ -47,14 +47,14 @@ export default {
   name: 'ActiveProfilePage',
   setup() {
     const route = useRoute()
-    onMounted(() => profileService.getProfileByID(route.params.profileId))
+    onMounted(() => profileService.getProfileByID(route.params.id))
     const state = reactive({
       newVault: {},
       newKeep: {}
 
     })
-    onMounted(() => vaultsService.getVaultsById(route.params.profileId))
-    onMounted(() => keepsService.getKeepsById(route.params.profileId))
+    onMounted(() => vaultsService.getVaultsById(route.params.id))
+    onMounted(() => keepsService.getKeepsById(route.params.id))
     return {
       activeprofile: computed(() => AppState.activeProfile),
       state,
