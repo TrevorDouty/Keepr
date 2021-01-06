@@ -35,5 +35,13 @@ namespace keepr.Repositories
       _db.Execute(sql, userinfo);
       return userinfo;
     }
+
+    internal Profile GetOne(int id)
+    {
+      string sql = @"
+      SELECT * FROM profiles WHERE id = @id";
+      return _db.QueryFirstOrDefault<Profile>(sql, new { id });
+
+    }
   }
 }

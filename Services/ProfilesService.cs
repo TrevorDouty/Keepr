@@ -25,5 +25,15 @@ namespace keepr.Services
       }
       return foundprofile;
     }
+
+    internal Profile GetOne(int id)
+    {
+      Profile foundprofile = _repo.GetOne(id);
+      if (foundprofile == null)
+      {
+        throw new Exception("Profile doesn't exist");
+      }
+      return foundprofile;
+    }
   }
 }
