@@ -15,7 +15,8 @@ class ProfileService {
   async getProfileByID(profileId) {
     try {
       const res = await api.get('/api/profiles/' + profileId)
-      AppState.profile = res.data
+      AppState.activeProfile = res.data
+      logger.log(res.data)
     } catch (error) {
       logger.error(error)
     }

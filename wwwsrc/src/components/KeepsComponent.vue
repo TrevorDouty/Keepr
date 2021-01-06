@@ -3,7 +3,7 @@
     <div class="card  card-columns btn rounded m-2 py-3" type="button" data-toggle="modal" :data-target="'#keepModal' + keeps.id">
       <h5> {{ keeps.name }} </h5>
       <p>{{ keeps.description }}</p>
-      <img :src="keeps.img" alt="">
+      <img :src="keeps.img" alt="" class="img-fluid">
       <img :src="keeps.creator.picture" alt="">
     </div>
   </div>
@@ -24,14 +24,19 @@
             <i class="fas fa-share">{{ keeps.shares }}</i>
           </div>
         </div>
-
-        <h5> {{ keeps.name }} </h5>
-        <p>{{ keeps.description }}</p>
-        <img :src="keeps.img" alt="" class="img-fluid">
-        <h5>{{ keeps.creator.name }}</h5>
-        <router-link data-dismiss="modal" :to="{name: 'ProfileById', params:{profileId: keeps.creator.id}}">
-          <img :src="keeps.creator.picture" alt="">
-        </router-link>
+        <div class="row">
+          <div class="col-4">
+            <img :src="keeps.img" alt="" class="img-fluid">
+          </div>
+          <div class="col-5 d-flex column">
+            <h5> {{ keeps.name }} </h5>
+            <p>{{ keeps.description }}</p>
+            <h5>{{ keeps.creator.name }}</h5>
+            <router-link data-dismiss="modal" :to="{name: 'ProfileById', params:{profileId: keeps.creator.id}}">
+              <img :src="keeps.creator.picture" alt="" class="avatar justify-self-end">
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -69,5 +74,12 @@ export default {
   @media (min-width: 1200px) {
     .card-columns{column-count: 5;}
   }
+}
+
+.avatar{
+  height: 10%;
+  width: 50%;
+  position: absolute;
+  bottom: 1em;
 }
 </style>
