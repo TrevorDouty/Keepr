@@ -13,6 +13,16 @@ class KeepsService {
     }
   }
 
+  async getKeepsById(profileId) {
+    try {
+      const res = await api.get('api/profiles/' + profileId + '/keeps')
+      AppState.keeps = res.data
+      logger.log(res.data)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
   async createKeep(newKeep) {
     try {
       const res = await api.post('api/keeps', newKeep)

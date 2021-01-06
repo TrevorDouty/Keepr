@@ -13,6 +13,16 @@ class VaultsService {
     }
   }
 
+  async getVaultsById(profileId) {
+    try {
+      const res = await api.get('api/profiles/' + profileId + '/vaults')
+      AppState.vaults = res.data
+      logger.log(res.data)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
   async createVault(newVault) {
     try {
       const res = await api.post('api/vaults', newVault)
