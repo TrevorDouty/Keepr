@@ -1,8 +1,8 @@
 <template>
   <div class="vaults-component">
     <div class="col-4">
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" :src="profile.picture" alt="Card image cap">
+      <div class="card vault-card" style="width: 18rem;">
+        <img class="card-img-top" :src="vaults.img" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">
             {{ vaults.name }}

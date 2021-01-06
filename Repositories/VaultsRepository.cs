@@ -33,9 +33,9 @@ SELECT * from Vaults
     public int Create(Vault vault)
     {
       string sql = @"INSERT INTO vaults
-      (name, description, isPrivate, creatorId)
+      (name, description, isPrivate, img, creatorId)
       VALUES
-      (@Name, @Description, @isPrivate, @creatorId);
+      (@Name, @Description, @isPrivate,@Img, @creatorId);
       SELECT LAST_INSERT_ID();";
       return _db.ExecuteScalar<int>(sql, vault);
     }

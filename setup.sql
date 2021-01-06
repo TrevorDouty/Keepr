@@ -87,3 +87,12 @@
 
 --  ALTER TABLE keeps
 -- ADD views INT 
+
+-- ALTER TABLE vaults
+-- ADD img VARCHAR(255);
+
+--  DELETE FROM keeps
+--  WHERE creatorId = 'cd0217ed-f597-4858-a4f5-9a643708a7cd'
+ 
+--  DELETE FROM vaults
+--  WHERE creatorId = 'cd0217ed-f597-4858-a4f5-9a643708a7cd'

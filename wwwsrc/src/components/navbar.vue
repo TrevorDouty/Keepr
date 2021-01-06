@@ -1,12 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-success bg-success">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/cw-logo.png"
-          height="45"
-        />
+        <i class="fab fa-kaggle fa-3x text-light border border-light"></i>
       </div>
     </router-link>
     <button
@@ -22,12 +18,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item text-light">
           <router-link :to="{ name: 'Home' }" class="nav-link">
             Home
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item text-light">
           <router-link :to="{ name: 'About' }" class="nav-link">
             About
           </router-link>
@@ -35,7 +31,7 @@
       </ul>
       <span class="navbar-text">
         <button
-          class="btn btn-outline-primary text-uppercase"
+          class="btn btn-outline-light text-uppercase haverable"
           @click="login"
           v-if="!user.isAuthenticated"
         >
@@ -114,14 +110,17 @@ export default {
 }
 .hoverable {
   cursor: pointer;
+  color: black;
 }
 a:hover {
   text-decoration: none;
 }
 .nav-link{
   text-transform: uppercase;
+  color: white;
 }
 .nav-item .nav-link.router-link-exact-active{
-  color: var(--primary);
+  color: var(--light
+  );
 }
 </style>
