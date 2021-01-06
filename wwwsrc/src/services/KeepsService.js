@@ -32,5 +32,23 @@ class KeepsService {
       logger.error(error)
     }
   }
+
+  async editViews(id) {
+    try {
+      await api.put('api/keeps/' + id + '?views=1')
+      this.getKeeps()
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async editKeepCount(id) {
+    try {
+      await api.put('api/keeps/' + id + '/keepcount?views=1')
+      this.getKeeps()
+    } catch (error) {
+      logger.error(error)
+    }
+  }
 }
 export const keepsService = new KeepsService()

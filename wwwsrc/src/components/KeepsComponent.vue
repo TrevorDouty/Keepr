@@ -1,6 +1,6 @@
 <template>
   <div class="keeps-component col-3">
-    <div class="card  card-columns btn rounded m-2 py-3" type="button" data-toggle="modal" :data-target="'#keepModal' + keeps.id">
+    <div class="card  card-columns btn rounded m-2 py-3" type="button" data-toggle="modal" :data-target="'#keepModal' + keeps.id" @click.prevent="editViews()">
       <h5> {{ keeps.name }} </h5>
       <p>{{ keeps.description }}</p>
       <img :src="keeps.img" alt="" class="img-fluid">
@@ -32,6 +32,26 @@
             <h5> {{ keeps.name }} </h5>
             <p>{{ keeps.description }}</p>
             <h5>{{ keeps.creator.name }}</h5>
+            <div class="dropdown show">
+              <a class="btn btn-outline-success btn-transparent dropdown-toggle justify-content-start"
+                 href="#"
+                 role="button"
+                 id="dropdownMenuLink"
+                 data-toggle="dropdown"
+                 aria-haspopup="true"
+                 aria-expanded="false"
+              >
+                Dropdown link
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#">
+                  <my-vaults-component v-for="vault in myvaults" :key="vault.id" :vault-prop="vault" />
+
+                </a>
+              </div>
+            </div>
+
             <router-link data-dismiss="modal" :to="{name: 'ProfileById', params:{id: keeps.creator.id}}">
               <img :src="keeps.creator.picture" alt="" class="avatar justify-self-end">
             </router-link>
@@ -45,29 +65,33 @@
 <script>
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
+import MyVaultsComponent from './MyVaultsComponent.vue'
 export default {
+  components: { MyVaultsComponent },
   name: 'KeepsComponent',
   props: ['keepProp'],
   setup(props) {
-    const state = reactive({})
+    const state = reactive({
+
+    })
     return {
       state,
       keeps: computed(() => props.keepProp),
-      profile: computed(() => AppState.profile)
+      profile: computed(() => AppState.profile),
+      vault: computed(() => AppState.vaults),
+
+      editViews() {
+        keepsService.editViews(props.keepProp.id)
+      }
     }
-  },
-  components: {}
+  }
 }
 </script>
 
 <style scoped>
 .card-columns {
-  @include media-breakpoint-only(lg) {
-    column-count: 4;
-  }
-  @include media-breakpoint-only(xl) {
-    column-count: 5;
-  }
+
   @media (min-width: 992px) {
     .card-columns{column-count: 4;}
   }

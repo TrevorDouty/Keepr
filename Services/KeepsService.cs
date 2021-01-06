@@ -67,11 +67,23 @@ namespace keepr.Services
       {
         throw new Exception("Incorrect Id");
       }
-      if (original.CreatorId != userId)
+
+      original.Views++;
+      _repo.Edit(original);
+
+      return original;
+
+    }
+    internal Keep EditKeepCount(Keep editKeep, string userId)
+    {
+      Keep original = _repo.GetOne(editKeep.Id);
+      if (original == null)
       {
-        throw new Exception("You can't edit this keep");
+        throw new Exception("Incorrect Id");
       }
-      _repo.Edit(editKeep);
+
+      original.Keeps++;
+      _repo.Edit(original);
 
       return original;
 

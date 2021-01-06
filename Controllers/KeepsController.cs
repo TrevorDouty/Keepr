@@ -81,9 +81,8 @@ namespace keepr.Controllers
     }
 
     [HttpPut("{id}")]
-    [Authorize]
 
-    public async Task<ActionResult<Keep>> Edit(int id, [FromBody] Keep editKeep)
+    public async Task<ActionResult<Keep>> Edit(int id, [FromQuery] Keep editKeep)
     {
       try
       {
@@ -91,10 +90,25 @@ namespace keepr.Controllers
         editKeep.Id = id;
         return Ok(_ks.Edit(editKeep, userInfo.Id));
       }
-      catch (System.Exception)
+      catch (System.Exception e)
       {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpPut("{id}/keepcount")]
+    [Authorize]
 
-        throw;
+    public async Task<ActionResult<Keep>> EditKeepCount(int id, [FromQuery] Keep editKeep)
+    {
+      try
+      {
+        Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
+        editKeep.Id = id;
+        return Ok(_ks.EditKeepCount(editKeep, userInfo.Id));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
       }
     }
   }

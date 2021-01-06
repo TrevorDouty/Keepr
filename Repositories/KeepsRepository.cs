@@ -59,11 +59,14 @@ namespace keepr.Repositories
     {
       string sql = @"
       UPDATE keeps SET 
-      name = @Name,
-      description =@Description,
-      img = @Img,
-      shares = @Shares,
-      views = @Views,
+      views = @Views
+      WHERE id = @Id;";
+      _db.Execute(sql, editKeep);
+    }
+    internal void EditKeepCount(Keep editKeep)
+    {
+      string sql = @"
+      UPDATE keeps SET 
       keeps = @Keeps
       WHERE id = @Id;";
       _db.Execute(sql, editKeep);
