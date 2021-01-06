@@ -1,6 +1,6 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
-import { api } from '../services/AxiosService'
+import { api } from './AxiosService'
 
 class VaultsService {
   async getVaults() {
