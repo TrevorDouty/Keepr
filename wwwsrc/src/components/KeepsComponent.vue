@@ -50,6 +50,7 @@
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
+                        @click.prevent="getVaults()"
                 >
                   Dropdown button
                 </button>
@@ -80,7 +81,7 @@
 </template>
 
 <script>
-import { computed, reactive, onMounted } from 'vue'
+import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import MyVaultsComponent from './MyVaultsComponent.vue'
@@ -94,12 +95,11 @@ export default {
     const state = reactive({
 
     })
-    onMounted(() => vaultsService.getVaultsById(props.keepProp.creatorId))
     return {
       state,
       keeps: computed(() => props.keepProp),
       profile: computed(() => AppState.profile),
-      vaults: computed(() => AppState.myvaults),
+      vaults: computed(() => AppState.vaults),
 
       editViews() {
         keepsService.editViews(props.keepProp.id)
@@ -112,6 +112,10 @@ export default {
       keepCount() {
         keepsService.editKeepCount(props.keepProp.id)
       },
+      getVaults() {
+        vaultsService.getVaults()
+      },
+
       deleteKeeps(keepId) {
         swal({
           title: 'Are you sure?',

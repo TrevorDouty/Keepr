@@ -57,8 +57,6 @@ SELECT * from Vaults
     }
 
 
-
-
     internal void Edit(Vault editVault)
     {
       string sql = @"

@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid home">
-    <div class="row justify-content-around img-fluid">
-      <vault-keeps-component v-for="keep in vaultKeeps" :key="keep.id" :keep-prop="keep" />
+  <div class="container-fluid active-vault-page">
+    <div class="row">
+      <keeps-component v-for="keep in keeps" :key="keep.vaultKeepId" :keep-prop="keep" />
     </div>
   </div>
 </template>
@@ -9,12 +9,12 @@
 import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import { vaultsService } from '../services/VaultsService'
-import VaultKeepsComponent from '../components/KeepsComponent'
+import KeepsComponent from '../components/KeepsComponent'
 import { useRoute } from 'vue-router'
 
 export default {
-  name: 'Home',
-  components: { VaultKeepsComponent },
+  name: 'ActiveVaultPage',
+  components: { KeepsComponent },
   props: ['VaultProp'],
 
   setup(props) {
@@ -22,10 +22,10 @@ export default {
     onMounted(() => vaultsService.getVaultKeeps(route.params.id))
     return {
       profile: computed(() => AppState.profile),
-      keeps: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.myvaults),
       allVaults: computed(() => AppState.vaults),
-      vaultKeeps: computed(() => props.VaultProp)
+      vaultKeeps: computed(() => props.VaultProp),
+      keeps: computed(() => AppState.vaultKeeps)
+
     }
   }
 }

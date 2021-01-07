@@ -17,7 +17,7 @@ namespace keepr.Services
 
     public IEnumerable<Vault> Get(string userId)
     {
-      return _repo.Get().ToList().FindAll(v => v.CreatorId == userId || v.isPrivate == false);
+      return _repo.Get().ToList().FindAll(v => v.CreatorId == userId);
     }
 
     internal Vault GetOne(int id)

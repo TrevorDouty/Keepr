@@ -67,9 +67,7 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <router-link data-dismiss="modal" :to="{name: 'ActiveVault', params:{id: vault.id}}">
-        <vaults-component v-for="vault in vaults" :key="vault.id" :vault-prop="vault" />
-      </router-link>
+      <vaults-component v-for="vault in vaults" :key="vault.id" :vault-prop="vault" />
     </div>
     <div class="row">
       <div class="col-2 text-right pt-4">
