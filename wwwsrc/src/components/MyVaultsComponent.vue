@@ -1,6 +1,8 @@
 <template>
   <div class="my-vaults-component">
-    <h5>{{ vaults }}</h5>
+    <h5>
+      {{ vaults.name }}
+    </h5>
   </div>
 </template>
 
@@ -9,14 +11,13 @@ import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 export default {
   name: 'MyVaultsComponent',
-  props: ['VaultProp'],
+  props: ['vaultProp'],
   setup(props) {
     const state = reactive({})
     return {
       state,
-      vaults: computed(() => props.VaultProp),
-      profile: computed(() => AppState.activeProfile),
-      myvaults: computed(() => AppState.myvaults)
+      profile: computed(() => AppState.profile),
+      vaults: computed(() => props.vaultProp)
     }
   },
   components: {}

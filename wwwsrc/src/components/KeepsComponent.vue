@@ -32,21 +32,19 @@
             <h5> {{ keeps.name }} </h5>
             <p>{{ keeps.description }}</p>
             <h5>{{ keeps.creator.name }}</h5>
-            <div class="dropdown show">
-              <a class="btn btn-outline-success btn-transparent dropdown-toggle justify-content-start"
-                 href="#"
-                 role="button"
-                 id="dropdownMenuLink"
-                 data-toggle="dropdown"
-                 aria-haspopup="true"
-                 aria-expanded="false"
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
               >
-                Dropdown link
-              </a>
-
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">
-                  <my-vaults-component v-for="vault in myvaults" :key="vault.id" :vault-prop="vault" />
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a v-for="vault in vaults" :key="vault.id" class="dropdown-item" href="#">
+                  <my-vaults-component :vault-prop="vault" />
 
                 </a>
               </div>
@@ -79,7 +77,7 @@ export default {
       state,
       keeps: computed(() => props.keepProp),
       profile: computed(() => AppState.profile),
-      vault: computed(() => AppState.vaults),
+      vaults: computed(() => AppState.myvaults),
 
       editViews() {
         keepsService.editViews(props.keepProp.id)

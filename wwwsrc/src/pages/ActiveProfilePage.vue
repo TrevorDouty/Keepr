@@ -58,7 +58,7 @@ export default {
     return {
       activeprofile: computed(() => AppState.activeProfile),
       state,
-      vaults: computed(() => AppState.vaults),
+      vaults: computed(() => AppState.myvaults),
       keeps: computed(() => AppState.keeps),
       profile: computed(() => AppState.profile),
 
