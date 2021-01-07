@@ -60,7 +60,6 @@ export default {
       state,
       vaults: computed(() => AppState.myvaults),
       keeps: computed(() => AppState.keeps),
-      profile: computed(() => AppState.profile),
 
       createVault(newVault) {
         vaultsService.createVault(state.newVault)

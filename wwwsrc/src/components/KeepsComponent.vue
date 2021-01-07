@@ -61,7 +61,8 @@
                   </a>
                 </div>
               </div>
-              <button @click.prevent="deleteKeeps(keeps.id)" class="mx-3">
+
+              <button v-show="keeps.creatorId == profile.id" @click.prevent="deleteKeeps(keeps.id)" class="mx-3">
                 <i class="fas fa-trash-alt"></i>
               </button>
               <!-- <div class="col-1">
@@ -84,6 +85,7 @@ import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import MyVaultsComponent from './MyVaultsComponent.vue'
 import { vaultsService } from '../services/VaultsService'
+import swal from 'sweetalert'
 export default {
   components: { MyVaultsComponent },
   name: 'KeepsComponent',
@@ -111,7 +113,23 @@ export default {
         keepsService.editKeepCount(props.keepProp.id)
       },
       deleteKeeps(keepId) {
-        keepsService.deleteKeeps(keepId)
+        swal({
+          title: 'Are you sure?',
+          text: 'Once deleted, you will not be able to recover this imaginary file!',
+          icon: 'warning',
+          buttons: true,
+          dangerMode: true
+        })
+          .then((willDelete) => {
+            if (willDelete) {
+              keepsService.deleteKeeps(keepId)
+              swal('Poof! Your imaginary file has been deleted!', {
+                icon: 'success'
+              })
+            } else {
+              swal('Your imaginary file is safe!')
+            }
+          })
       }
 
     }
