@@ -66,7 +66,7 @@
         </h1>
       </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row">
       <vaults-component v-for="vault in vaults" :key="vault.id" :vault-prop="vault" />
     </div>
     <div class="row">
@@ -78,7 +78,7 @@
         </h1>
       </div>
     </div>
-    <div class="row justify-content-around img-fluid">
+    <div class="row card-column">
       <keeps-component v-for="keep in keeps" :key="keep.id" :keep-prop="keep" />
     </div>
     <div class="row">
@@ -169,5 +169,34 @@ img {
 .fas{
   color: #27AE60;
 }
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
 
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 5;
+        -moz-column-count: 5;
+        column-count: 5;
+    }
+}}
 </style>

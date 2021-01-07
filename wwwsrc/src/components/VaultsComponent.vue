@@ -1,7 +1,7 @@
 <template>
   <div class="vaults-component">
     <div class="col-4">
-      <div class="card vault-card" style="width: 18rem;">
+      <div class="card borderPatrol vault-card" style="width: 18rem;">
         <img class="card-img-top" :src="vaults.img" alt="Card image cap">
         <div class="card-body">
           <router-link data-dismiss="modal" :to="{name: 'ActiveVault', params:{id: vaults.id}}">
@@ -36,6 +36,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.borderPatrol{
+  border-radius: 17px;
+}
 </style>

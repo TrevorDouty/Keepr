@@ -1,10 +1,17 @@
 <template>
-  <div class="keeps-component col-3">
-    <div class="card  card-columns btn rounded m-2 py-3" type="button" data-toggle="modal" :data-target="'#keepModal' + keeps.id" @click.prevent="editViews()">
-      <h5> {{ keeps.name }} </h5>
-      <p>{{ keeps.description }}</p>
-      <img :src="keeps.img" alt="" class="img-fluid">
-      <img :src="keeps.creator.picture" alt="">
+  <div class="keeps-component">
+    <div class="card" type="button" data-toggle="modal" :data-target="'#keepModal' + keeps.id" @click.prevent="editViews()">
+      <img :src="keeps.img" alt="" class="img-fluid avatar borderPatrol">
+      <div class="card-img-overlay bottom ">
+        <div class="keepName card">
+          {{ keeps.name }}
+        </div>
+        <img :src="keeps.creator.picture"
+             alt=""
+             class="
+        rounded-circle avatarImg"
+        >
+      </div>
     </div>
   </div>
   <div class="modal fade"
@@ -142,24 +149,34 @@ export default {
 </script>
 
 <style scoped>
-.card-columns {
-
-  @media (min-width: 992px) {
-    .card-columns{column-count: 4;}
-  }
-  @media (min-width: 1200px) {
-    .card-columns{column-count: 5;}
-  }
+.borderPatrol{
+  border-radius: 17px;
 }
 .bottom{
   position: absolute;
   bottom: 1em;
-  justify-content: space-around;
 }
 .avatar{
-  height: 75%;
+  height: auto;
   width: 100%;
-  position: absolute;
-  bottom: 1em;
+
 }
+
+.rounded-circle{
+  height: 12%;
+}
+
+.keepName{
+  width: 60%;
+ position: absolute;
+  bottom: 0em;
+  left: 0em;
+}
+
+.avatarImg{
+  position: absolute;
+  bottom: 0em;
+  right: 1em;
+}
+
 </style>

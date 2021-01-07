@@ -31,7 +31,7 @@ namespace keepr.Services
       {
         throw new Exception("Not allowed");
       }
-      else if (_repo.Delete(id))
+      else if (_repo.Remove(id))
       {
         return "Deleted";
       }

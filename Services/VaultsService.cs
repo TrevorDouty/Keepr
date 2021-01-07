@@ -27,10 +27,7 @@ namespace keepr.Services
       {
         throw new Exception("This Vault doesn't exist");
       }
-      if (foundVault.isPrivate)
-      {
-        throw new Exception("This Vault is Private");
-      }
+
       return foundVault;
 
     }
