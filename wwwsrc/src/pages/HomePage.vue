@@ -19,7 +19,9 @@ export default {
     onMounted(() => { keepsService.getKeeps() })
     return {
       profile: computed(() => AppState.profile),
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.myvaults),
+      allVaults: computed(() => AppState.vaults)
     }
   }
 }

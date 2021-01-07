@@ -32,5 +32,18 @@ class VaultsService {
       logger.error(error)
     }
   }
+
+  async addVaultKeep(vaultId, KeepId) {
+    try {
+      const newVaultKeep = {
+        vaultId: vaultId,
+        keepId: KeepId
+      }
+      logger.log(newVaultKeep)
+      await api.post('api/vaultkeeps', newVaultKeep)
+    } catch (error) {
+      logger.errror(error)
+    }
+  }
 }
 export const vaultsService = new VaultsService()

@@ -44,7 +44,16 @@ class KeepsService {
 
   async editKeepCount(id) {
     try {
-      await api.put('api/keeps/' + id + '/keepcount?views=1')
+      await api.put('api/keeps/' + id + '/keepcount?keeps=1')
+      this.getKeeps()
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async deleteKeeps(id) {
+    try {
+      await api.delete('api/keeps/' + id)
       this.getKeeps()
     } catch (error) {
       logger.error(error)

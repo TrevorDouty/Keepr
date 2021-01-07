@@ -83,7 +83,7 @@ namespace keepr.Services
       }
 
       original.Keeps++;
-      _repo.Edit(original);
+      _repo.EditKeepCount(original);
 
       return original;
 
