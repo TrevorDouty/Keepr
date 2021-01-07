@@ -67,7 +67,9 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <vaults-component v-for="vault in vaults" :key="vault.id" :vault-prop="vault" />
+      <router-link data-dismiss="modal" :to="{name: 'ActiveVault', params:{id: vault.id}}">
+        <vaults-component v-for="vault in vaults" :key="vault.id" :vault-prop="vault" />
+      </router-link>
     </div>
     <div class="row">
       <div class="col-2 text-right pt-4">
@@ -143,6 +145,7 @@ export default {
     })
     onMounted(() => vaultsService.getVaults())
     onMounted(() => keepsService.getKeeps())
+
     return {
       state,
       profile: computed(() => AppState.profile),

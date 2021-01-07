@@ -45,5 +45,15 @@ class VaultsService {
       logger.errror(error)
     }
   }
+
+  async getVaultKeeps(id) {
+    try {
+      const res = await api.get('api/vaults/' + id + ('/keeps'))
+      AppState.vaultKeeps = res.data
+      logger.log(AppState.vaultKeeps)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
 }
 export const vaultsService = new VaultsService()
